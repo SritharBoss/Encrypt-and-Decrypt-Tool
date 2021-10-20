@@ -22,12 +22,12 @@ import javax.swing.SwingUtilities;
 
 public class JavaSwing implements ActionListener, MouseListener {
 
-	JFrame frame;
-	ButtonGroup group;
-	JRadioButton button1, button2;
-	JTextArea area, area1;
-	JTextField field;
-	JButton button;
+	private JFrame frame;
+	private ButtonGroup group;
+	private JRadioButton button1, button2;
+	private JTextArea area, area1, area2;
+	private JTextField field;
+	private JButton button;
 
 	private void build() {
 		frame = new JFrame("Encryption & Decryption");
@@ -80,10 +80,8 @@ public class JavaSwing implements ActionListener, MouseListener {
 
 		area1.addMouseListener(this);
 
-		
-		
 		SwingUtilities.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				JLabel label = new JLabel(new ImageIcon(getClass().getResource("/main/java/p.jpg")));
@@ -91,8 +89,8 @@ public class JavaSwing implements ActionListener, MouseListener {
 				frame.add(label);
 			}
 		});
-		
-		JTextArea area2 = new JTextArea("Tip : Right Click on the Text Area to Copy the Output");
+
+		area2 = new JTextArea("Tip : Right Click on the Text Area to Copy the Output");
 		area2.setBounds(40, 320, 340, 20);
 		area2.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 12));
 		area2.setEditable(false);
@@ -129,9 +127,10 @@ public class JavaSwing implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getButton() == MouseEvent.BUTTON3) {
+		if (e.getButton() == MouseEvent.BUTTON3 && !area1.getText().equals("")) {
 			Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
 			clip.setContents(new StringSelection(area1.getText()), null);
+			area2.setText("Content Copied to Clipboard....");
 		}
 
 	}
